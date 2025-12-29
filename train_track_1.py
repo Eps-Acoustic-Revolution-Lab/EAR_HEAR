@@ -5,27 +5,27 @@ import torch.nn.functional as F
 import argparse
 import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
-from music_dataset import train_data_loader, test_data_loader, music_collate_fn, LABEL_NAMES_TRACK_2
+from music_dataset import train_data_loader, test_data_loader, music_collate_fn, LABEL_NAMES_TRACK_1
 from models.HEAR import HEAR
 from models.listMLE import listMLE
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import yaml
 import numpy as np
-from utils import calculate_results_track_2, save_networks, load_networks
+from utils import calculate_results_track_1, save_networks, load_networks
 from torch.amp import autocast, GradScaler
 from torch.nn.utils import clip_grad_norm_
 
 parser = argparse.ArgumentParser("Training")
 parser.add_argument('--train-data', type=str, default=None, help='Path to training data pkl file')
 parser.add_argument('--test-data', type=str, default=None, help='Path to test data pkl file')
-parser.add_argument('--experiment_name', type=str, default='track_2')
+parser.add_argument('--experiment_name', type=str, default='track_1')
 parser.add_argument('--max-epoch', type=int, default=60)
-parser.add_argument('--batch-size', type=int, default=8)
+parser.add_argument('--batch-size', type=int, default=8) 
 parser.add_argument('--load-checkpoint', action='store_true', default=False)   
-parser.add_argument('--lr', type=float, default=1e-5, help="learning rate for model")
+parser.add_argument('--lr', type=float, default=1e-5, help="learning rate for model") 
 parser.add_argument('--weight_decay', type=float, default=1e-3, help="learning rate for model") 
 parser.add_argument('--accum_steps', type=int, default=4)  
-parser.add_argument('--lambda', type=float, default=0.05)  
+parser.add_argument('--lambda', type=float, default=0.15) 
 parser.add_argument('--outf', type=str, default='./log')
 parser.add_argument('--workers', type=int, default=8, help='workers')
 parser.add_argument('--seed', type=int, default=0)
@@ -50,8 +50,8 @@ def main(options):
 
     options['scaler'] = GradScaler('cuda')
     
-    train_data = train_data_loader(pkl_path=options.get('train_data'), label_names=LABEL_NAMES_TRACK_2)
-    test_data = test_data_loader(pkl_path=options.get('test_data'), label_names=LABEL_NAMES_TRACK_2)
+    train_data = train_data_loader(pkl_path=options.get('train_data'), label_names=LABEL_NAMES_TRACK_1)
+    test_data = test_data_loader(pkl_path=options.get('test_data'), label_names=LABEL_NAMES_TRACK_1)
     train_loader = torch.utils.data.DataLoader(train_data,
                                                batch_size=options['batch_size'],
                                                shuffle=True,
@@ -69,14 +69,15 @@ def main(options):
                                                persistent_workers=True, 
                                                collate_fn=music_collate_fn)
     
-    with open("config_track_2.yaml", 'r') as f:
+    with open("config_track_1.yaml", 'r') as f:
         config = yaml.load(f.read(), Loader=yaml.FullLoader)
     model_config = config['model_config']
     model = HEAR(model_config)
 
     if options['load_checkpoint'] == True:
         model = unwrap_model(model)
-        model = load_networks(model, "log/models/test_track_2")
+        checkpoint_path = os.path.join(options['outf'], 'models', options['experiment_name'])
+        model = load_networks(model, checkpoint_path)
     model = model.to(device)
     if use_gpu and torch.cuda.device_count() > 1:
         print(f"Using DataParallel on {torch.cuda.device_count()} GPUs")
@@ -103,7 +104,7 @@ def main(options):
     scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=400)
 
     best_results = {}
-    best_results['mean'] = {
+    best_results['Musicality'] = {
         "Pearson":0, 
         "Spearman":0,
         "Kendall":0,
@@ -179,8 +180,8 @@ def train(epoch, model, train_loader, loss_smooth, optimizer, scheduler,
                 results = test(model, test_loader, epoch, step, **options)
             model.train()
 
-            total_score = sum(results['mean'].values())
-            best_score = sum(best_results['mean'].values())
+            total_score = sum(results['Musicality'].values())
+            best_score = sum(best_results['Musicality'].values())
 
             for metric_name, metric_values in results.items():
                 for sub_name, value in metric_values.items():
@@ -216,7 +217,7 @@ def test(model, test_loader, epoch=0, step=0, **options):
     y_pred = torch.cat(all_preds, dim=0).numpy()
     y_true = torch.cat(all_labels, dim=0).numpy()
     
-    results = calculate_results_track_2(y_true, y_pred, **options)
+    results = calculate_results_track_1(y_true, y_pred, **options)
     return results
 
 class AverageMeter(object):

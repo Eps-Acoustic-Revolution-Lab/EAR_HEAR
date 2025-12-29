@@ -8,11 +8,11 @@ from tqdm import tqdm
 import os
 import re
 
-# Task 1: Single label (Musicality)
-LABEL_NAMES_TASK_1 = ["Musicality"]
+# Track 1: Single label (Musicality)
+LABEL_NAMES_TRACK_1 = ["Musicality"]
 
-# Task 2: Multiple labels (5 dimensions)
-LABEL_NAMES_TASK_2 = ["Coherence", "Musicality", "Memorability", "Clarity", "Naturalness"]
+# Track 2: Multiple labels (5 dimensions)
+LABEL_NAMES_TRACK_2 = ["Coherence", "Musicality", "Memorability", "Clarity", "Naturalness"]
 
 class MusicDataset(Dataset):
     def __init__(self, txt_path, mode, label_names):
@@ -20,7 +20,7 @@ class MusicDataset(Dataset):
         Args:
             txt_path: Path to the pickle file containing dataset
             mode: "train" or "test"
-            label_names: List of label names to use (e.g., LABEL_NAMES_TASK_1 or LABEL_NAMES_TASK_2)
+            label_names: List of label names to use (e.g., LABEL_NAMES_TRACK_1 or LABEL_NAMES_TRACK_2)
         """
         self.data = []
         self.mode = mode
@@ -179,12 +179,12 @@ def train_data_loader(pkl_path=None, label_names=None):
     
     Args:
         pkl_path: Path to the pickle file (default: 'data_pipeline/dataset_pkl/train_set.pkl')
-        label_names: List of label names to use (default: LABEL_NAMES_TASK_1)
+        label_names: List of label names to use (default: LABEL_NAMES_TRACK_1)
     """
     if pkl_path is None:
         pkl_path = 'data_pipeline/dataset_pkl/train_set.pkl'
     if label_names is None:
-        label_names = LABEL_NAMES_TASK_1
+        label_names = LABEL_NAMES_TRACK_1
     train_data = MusicDataset(
         txt_path=pkl_path,
         mode="train",
@@ -198,12 +198,12 @@ def test_data_loader(pkl_path=None, label_names=None):
     
     Args:
         pkl_path: Path to the pickle file (default: 'data_pipeline/dataset_pkl/test_set.pkl')
-        label_names: List of label names to use (default: LABEL_NAMES_TASK_1)
+        label_names: List of label names to use (default: LABEL_NAMES_TRACK_1)
     """
     if pkl_path is None:
         pkl_path = 'data_pipeline/dataset_pkl/test_set.pkl'
     if label_names is None:
-        label_names = LABEL_NAMES_TASK_1
+        label_names = LABEL_NAMES_TRACK_1
     test_data = MusicDataset(
         txt_path=pkl_path,
         mode="test",
@@ -214,9 +214,9 @@ def test_data_loader(pkl_path=None, label_names=None):
 
 if __name__ == "__main__":
     pkl_path = 'data_pipeline/dataset_pkl/test_set.pkl'
-    # Test Task 1
-    # ds = train_data_loader(pkl_path, LABEL_NAMES_TASK_1)
-    ds = test_data_loader(pkl_path, LABEL_NAMES_TASK_1)
+    # Test Track 1
+    # ds = train_data_loader(pkl_path, LABEL_NAMES_TRACK_1)
+    ds = test_data_loader(pkl_path, LABEL_NAMES_TRACK_1)
     dl = DataLoader(ds, batch_size=8, shuffle=True, num_workers=8, pin_memory=True, prefetch_factor=4, persistent_workers=True, collate_fn=music_collate_fn)
     for batch in dl:
         print(batch)

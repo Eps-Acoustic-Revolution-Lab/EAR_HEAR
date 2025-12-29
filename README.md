@@ -45,15 +45,15 @@ This script will:
 
 ### Step 2: Model Training
 
-After data preparation, you can train the HEAR model for either Task 1 (single-label: Musicality) or Task 2 (multi-label: 5 dimensions).
+After data preparation, you can train the HEAR model for either Track 1 (single-label: Musicality) or Track 2 (multi-label: 5 dimensions).
 
-#### Task 1: Single-Label Training (Musicality)
+#### Track 1: Single-Label Training (Musicality)
 
 Train the model for musicality prediction:
 
 ```bash
-python train_task_1.py \
-    --experiment_name task1_exp \
+python train_track_1.py \
+    --experiment_name track1_exp \
     --train-data /path/to/train.pkl \
     --test-data /path/to/test.pkl \
     --max-epoch 60 \
@@ -66,13 +66,13 @@ python train_task_1.py \
     --seed 0
 ```
 
-#### Task 2: Multi-Label Training (5 Dimensions)
+#### Track 2: Multi-Label Training (5 Dimensions)
 
 Train the model for multi-dimensional aesthetic evaluation:
 
 ```bash
-python train_task_2.py \
-    --experiment_name task2_exp \
+python train_track_2.py \
+    --experiment_name track2_exp \
     --train-data /path/to/train.pkl \
     --test-data /path/to/test.pkl \
     --max-epoch 60 \
@@ -93,7 +93,7 @@ python train_task_2.py \
 * `--lr`: Learning rate (default: 1e-5)
 * `--weight_decay`: Weight decay for optimizer (default: 1e-3)
 * `--accum_steps`: Gradient accumulation steps (default: 4)
-* `--lambda`: Weight for ranking loss (Task 1: 0.15, Task 2: 0.05)
+* `--lambda`: Weight for ranking loss (Track 1: 0.15, Track 2: 0.05)
 * `--workers`: Number of data loading workers (default: 8)
 * `--seed`: Random seed for reproducibility (default: 0)
 * `--train-data`: Path to training data pkl file (default: `data_pipeline/dataset_pkl/train_set.pkl`)
@@ -105,15 +105,15 @@ python train_task_2.py \
 To evaluate a trained model, use the `--eval` flag:
 
 ```bash
-python train_task_1.py --eval --experiment_name task1_exp
-python train_task_2.py --eval --experiment_name task2_exp
+python train_track_1.py --eval --experiment_name track1_exp
+python train_track_2.py --eval --experiment_name track2_exp
 ```
 
 #### Model Configuration
 
 Model architectures are configured in:
-* `config_task_1.yaml` - Configuration for Task 1
-* `config_task_2.yaml` - Configuration for Task 2
+* `config_track_1.yaml` - Configuration for Track 1
+* `config_track_2.yaml` - Configuration for Track 2
 
 Trained models are saved in `log/models/{experiment_name}/model.pth`, and training logs are saved to TensorBoard in `./log/tensorboard_records/{experiment_name}/` (or custom path specified by `--log-dir`).
 

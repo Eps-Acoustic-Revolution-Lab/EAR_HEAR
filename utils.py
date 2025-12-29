@@ -16,7 +16,7 @@ def safe_corr(a, b, method="pearson"):
     return 0.0 if np.isnan(r) else r
 
 
-def calculate_results_task_1(y_true: np.ndarray, y_pred: np.ndarray, **options):
+def calculate_results_track_1(y_true: np.ndarray, y_pred: np.ndarray, **options):
     """
     计算多维指标的相关系数与 Top_Tier Accuracy。
     输入:
@@ -72,7 +72,7 @@ def calculate_results_task_1(y_true: np.ndarray, y_pred: np.ndarray, **options):
 
     return results
 
-def calculate_results_task_2(y_true: np.ndarray, y_pred: np.ndarray, **options):
+def calculate_results_track_2(y_true: np.ndarray, y_pred: np.ndarray, **options):
     """
     计算多维指标的相关系数与 Top_Tier Accuracy。
     输入:

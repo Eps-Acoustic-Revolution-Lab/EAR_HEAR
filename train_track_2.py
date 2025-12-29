@@ -76,7 +76,8 @@ def main(options):
 
     if options['load_checkpoint'] == True:
         model = unwrap_model(model)
-        model = load_networks(model, "log/models/test_track_2")
+        checkpoint_path = os.path.join(options['outf'], 'models', options['experiment_name'])
+        model = load_networks(model, checkpoint_path)
     model = model.to(device)
     if use_gpu and torch.cuda.device_count() > 1:
         print(f"Using DataParallel on {torch.cuda.device_count()} GPUs")
