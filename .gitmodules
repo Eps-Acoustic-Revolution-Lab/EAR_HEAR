@@ -1,0 +1,3 @@
+[submodule "data_pipeline/musicfm"]
+	path = data_pipeline/musicfm
+	url = https://github.com/minzwon/musicfm.git
