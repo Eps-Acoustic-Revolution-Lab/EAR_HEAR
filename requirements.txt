@@ -1,0 +1,9 @@
+torch==2.6.0
+torchvision==0.21.0
+torchaudio==2.6.0
+audiomentations==0.43.1
+tqdm==4.67.1
+pyyaml==6.0.3
+muq==0.1.0
+gpustat==1.1.1
+tensorboard==2.20.0

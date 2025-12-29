@@ -11,19 +11,19 @@ DATASET_PKL_PATH=dataset_pkl
 # stage 1: download dataset
 huggingface-cli download --repo-type dataset ASLP-lab/SongEval --local-dir $ORIGIN_DATASET_PATH
 
-# stage2: 
+# stage 2: Split the dataset into training and test sets using val_ids.txt
 curl -o val_ids.txt https://raw.githubusercontent.com/ASLP-lab/Automatic-Song-Aesthetics-Evaluation-Challenge/refs/heads/main/static/val_ids.txt
 find $ORIGIN_DATASET_PATH/mp3 -name "*.mp3" | grep -f "val_ids.txt" > test.txt
 find $ORIGIN_DATASET_PATH/mp3 -name "*.mp3" | grep -vf "val_ids.txt" > train.txt
 
-# stage 2: Audio Augmentation
+# stage 3: Audio Augmentation
 python audio_augmentation.py \
     --input_txt train.txt \
     --output_txt train_aug.txt \
     --output_dir ${ORIGIN_DATASET_PATH}/mp3_aug \
     --n_augmentations 3 
 
-# stage 3: Extract MuQ and MusicFM feature
+# stage 4: Extract MuQ and MusicFM feature
 bash download_musicfm.sh ${MUSICFM_CKPT_PATH}
 
 # extract train_aug_embedding
@@ -32,13 +32,13 @@ python extract_muq_and_musicfm_feature.py \
     --output_txt train_aug_embedding.txt \
     --output_dir train_aug_embedding \
 
-# extract eval_embedding
+# extract test_embedding
 python extract_muq_and_musicfm_feature.py \
     --input_txt test.txt \
     --output_txt test_embedding.txt \
     --output_dir test_embedding \
 
-# stage 4: generate train_set.pkl and eval_set.pkl
+# stage 5: generate train_set.pkl and test_set.pkl
 mkdir -p ${DATASET_PKL_PATH} > /dev/null 2>&1
 python generate_pkl.py \
     --input_embedding_txt_path train_aug_embedding.txt \
