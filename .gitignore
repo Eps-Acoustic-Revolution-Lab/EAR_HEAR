@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+log/
+*.mp3
+*.wav
+*.pkl
+*.npy
+data_pipeline/hub
+data_pipeline/MusicFM
+data_pipeline/origin_song_eval_dataset

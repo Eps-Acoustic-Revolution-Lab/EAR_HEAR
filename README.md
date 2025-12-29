@@ -9,9 +9,6 @@ This repository contains the training and evaluation code for HEAR, a robust fra
 * **Robustness**: Synergizes Multi-Source Multi-Scale Representations and Hierarchical Augmentation to capture robust features under limited labeled data.
 * **Dual Capability**: Optimized for both exact score prediction and ranking (Top-Tier Identification).
 
-## 🚀 Quick Start
-TODO: Package as a command-line tool
-
 ## 📦 Installation
 Clone the repository and install dependencies:
 ```
@@ -22,6 +19,9 @@ conda create -n hear python=3.10 -y
 conda activate hear
 pip install -r requirements.txt
 ```
+
+## 🚀 Quick Start
+TODO: Package as a command-line tool
 
 ## 🎯 Training
 
@@ -43,7 +43,79 @@ This script will:
 5. **Generate PKL Files**: Generate `train_set.pkl` and `test_set.pkl` files for training and evaluation
 
 
-### Step 2:
+### Step 2: Model Training
+
+After data preparation, you can train the HEAR model for either Task 1 (single-label: Musicality) or Task 2 (multi-label: 5 dimensions).
+
+#### Task 1: Single-Label Training (Musicality)
+
+Train the model for musicality prediction:
+
+```bash
+python train_task_1.py \
+    --experiment_name task1_exp \
+    --train-data /path/to/train.pkl \
+    --test-data /path/to/test.pkl \
+    --max-epoch 60 \
+    --batch-size 8 \
+    --lr 1e-5 \
+    --weight_decay 1e-3 \
+    --accum_steps 4 \
+    --lambda 0.15 \
+    --workers 8 \
+    --seed 0
+```
+
+#### Task 2: Multi-Label Training (5 Dimensions)
+
+Train the model for multi-dimensional aesthetic evaluation:
+
+```bash
+python train_task_2.py \
+    --experiment_name task2_exp \
+    --train-data /path/to/train.pkl \
+    --test-data /path/to/test.pkl \
+    --max-epoch 60 \
+    --batch-size 8 \
+    --lr 1e-5 \
+    --weight_decay 1e-3 \
+    --accum_steps 4 \
+    --lambda 0.05 \
+    --workers 8 \
+    --seed 0
+```
+
+#### Key Parameters
+
+* `--max-epoch`: Maximum number of training epochs (default: 60)
+* `--batch-size`: Batch size for training (default: 8)
+* `--experiment_name`: Name of the experiment for saving models and logs
+* `--lr`: Learning rate (default: 1e-5)
+* `--weight_decay`: Weight decay for optimizer (default: 1e-3)
+* `--accum_steps`: Gradient accumulation steps (default: 4)
+* `--lambda`: Weight for ranking loss (Task 1: 0.15, Task 2: 0.05)
+* `--workers`: Number of data loading workers (default: 8)
+* `--seed`: Random seed for reproducibility (default: 0)
+* `--train-data`: Path to training data pkl file (default: `data_pipeline/dataset_pkl/train_set.pkl`)
+* `--test-data`: Path to test data pkl file (default: `data_pipeline/dataset_pkl/test_set.pkl`)
+* `--log-dir`: Path to tensorboard log directory (default: `./log/tensorboard_records/{experiment_name}`)
+
+#### Evaluation Mode
+
+To evaluate a trained model, use the `--eval` flag:
+
+```bash
+python train_task_1.py --eval --experiment_name task1_exp
+python train_task_2.py --eval --experiment_name task2_exp
+```
+
+#### Model Configuration
+
+Model architectures are configured in:
+* `config_task_1.yaml` - Configuration for Task 1
+* `config_task_2.yaml` - Configuration for Task 2
+
+Trained models are saved in `log/models/{experiment_name}/model.pth`, and training logs are saved to TensorBoard in `./log/tensorboard_records/{experiment_name}/` (or custom path specified by `--log-dir`).
 
 
 

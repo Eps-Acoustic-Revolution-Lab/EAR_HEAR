@@ -1,0 +1,12 @@
+model_config:
+  in_features: 1024
+  ffd_hidden_size: 4096
+  attn_layer_num: 4
+  num_classes: 1
+  input_dim_raw: 4096
+  input_dim: 2048
+  transformer_encoder_input_dim: 1024
+  down_sample_conv_kernel_size: 3
+  down_sample_conv_stride: 3
+  down_sample_conv_dropout: 0.1
+  down_sample_conv_padding: 0
