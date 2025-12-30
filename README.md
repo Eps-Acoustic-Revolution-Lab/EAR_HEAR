@@ -5,7 +5,7 @@ Official PyTorch Implementation of ICASSP 2026 paper "HEAR: Hierarchically Enhan
 This repository contains the training and evaluation code for HEAR, a robust framework designed to address the challenges of multidimensional music aesthetic evaluation under limited labeled data.
 ![](figs/HEAR.png)
 ## 🌟 Key Features
-* **SOTA Performance**: Ranked 2nd/19 on Track 1 and 5th/17 on Track 2 in the [ICASSP 2026 Automatic Song Aesthetics Evaluation Challenge](https://aslp-lab.github.io/Automatic-Song-Aesthetics-Evaluation-Challenge/).
+* **Top-tier performance**: Ranked 2nd/19 on Track 1 and 5th/17 on Track 2 in the [ICASSP 2026 Automatic Song Aesthetics Evaluation Challenge](https://aslp-lab.github.io/Automatic-Song-Aesthetics-Evaluation-Challenge/).
 * **Robustness**: Synergizes Multi-Source Multi-Scale Representations and Hierarchical Augmentation to capture robust features under limited labeled data.
 * **Dual Capability**: Optimized for both exact score prediction and ranking (Top-Tier Identification).
 
