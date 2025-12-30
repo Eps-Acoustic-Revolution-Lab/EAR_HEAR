@@ -118,4 +118,17 @@ Model architectures are configured in:
 Trained models are saved in `log/models/{experiment_name}/model.pth`, and training logs are saved to TensorBoard in `./log/tensorboard_records/{experiment_name}/` (or custom path specified by `--log-dir`).
 
 
+## 🙏 Acknowledgement
 
+We sincerely thank the authors and contributors of the following open-source projects.:
+
+* **[SongEval](https://github.com/ASLP-lab/SongEval)**
+* **[SongFormer](https://github.com/ASLP-lab/SongFormer)**
+* **[Audiomentations](https://github.com/iver56/audiomentations)**
+* **[Wespeaker](https://github.com/wenet-e2e/wespeaker)**
+* **[]
+
+We would like to express our special thanks to **Shizhe Chen** from **Shanghai Conservatory of Music** for his invaluable guidance and insights on music aesthetics.
+
+## 📚 Citation
+TODO: To be updated when the paper is ready.

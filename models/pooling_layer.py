@@ -1,3 +1,23 @@
+# Copyright (c) 2021 Shuai Wang (wsstriving@gmail.com)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# 
+# Modifications Copyright (c) 2025 Yuan Jin
+#
+# Changes made by Yuan Jin:
+# - Added attention_mask parameter support to MHASTP.forward() and MQMHASTP.forward()
+#
+# This file is still licensed under the Apache License, Version 2.0.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -68,7 +88,7 @@ class MHASTP(torch.nn.Module):
             for i, layer in enumerate(self.heads_att_trans):
                 x = chunks[i] 
                 att_score = layer(x)  
-                att_score = att_score.masked_fill(attention_mask.unsqueeze(1), -1e-8) 
+                att_score = att_score.masked_fill(attention_mask.unsqueeze(1), -1e8) 
                 alpha = F.softmax(att_score, dim=-1)
                 mean = torch.sum(alpha * x, dim=2)  
                 var = torch.sum(alpha * x**2, dim=2) - mean**2
