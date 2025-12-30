@@ -54,8 +54,8 @@ Train the model for musicality prediction:
 ```bash
 python train_track_1.py \
     --experiment_name track1_exp \
-    --train-data /path/to/train.pkl \
-    --test-data /path/to/test.pkl \
+    --train-data /path/to/train_set.pkl \
+    --test-data /path/to/test_set.pkl \
     --max-epoch 60 \
     --batch-size 8 \
     --lr 1e-5 \
@@ -73,8 +73,8 @@ Train the model for multi-dimensional aesthetic evaluation:
 ```bash
 python train_track_2.py \
     --experiment_name track2_exp \
-    --train-data /path/to/train.pkl \
-    --test-data /path/to/test.pkl \
+    --train-data /path/to/train_set.pkl \
+    --test-data /path/to/test_set.pkl \
     --max-epoch 60 \
     --batch-size 8 \
     --lr 1e-5 \
@@ -126,7 +126,7 @@ We sincerely thank the authors and contributors of the following open-source pro
 * **[SongFormer](https://github.com/ASLP-lab/SongFormer)**
 * **[Audiomentations](https://github.com/iver56/audiomentations)**
 * **[Wespeaker](https://github.com/wenet-e2e/wespeaker)**
-* **[]
+* **[allRank](https://github.com/allegro/allRank)**
 
 We would like to express our special thanks to **Shizhe Chen** from **Shanghai Conservatory of Music** for his invaluable guidance and insights on music aesthetics.
 
