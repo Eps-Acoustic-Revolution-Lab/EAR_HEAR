@@ -10,7 +10,7 @@ This repository contains the training and evaluation code for HEAR, a robust fra
 ## 🌟 Key Features
 * **Top-tier performance**: Ranked 2nd/19 on Track 1 and 5th/17 on Track 2 in the [ICASSP 2026 Automatic Song Aesthetics Evaluation Challenge](https://aslp-lab.github.io/Automatic-Song-Aesthetics-Evaluation-Challenge/).
 * **Robustness**: Synergizes Multi-Source Multi-Scale Representations and Hierarchical Augmentation to capture robust features under limited labeled data.
-* **Dual Capability**: Optimized for both exact score prediction and ranking (Top-Tier Identification).
+* **Dual Capability**: Optimized for both exact score prediction and ranking (Top-Tier Song Identification).
 
 ## 📦 Installation
 Clone the repository and install dependencies:
@@ -24,7 +24,25 @@ pip install -r requirements.txt
 ```
 
 ## 🚀 Quick Start
-TODO: Package as a command-line tool
+```
+# download pretrained model weights
+# TODO: Pretrained model will be uploaded to HuggingFace soon.
+
+# Track 1: Single-Label Inference (Musicality)
+python inference.py \
+    --input_audio_path data_pipeline/origin_song_eval_dataset/mp3/0.mp3 \
+    --output_json_path output.json
+    --model_path pretrained_models/track_1.pth \
+    --model_config_path config_track_1.yaml
+
+
+# Track 2: 
+python inference.py \
+    --input_audio_path data_pipeline/origin_song_eval_dataset/mp3/0.mp3 \
+    --output_json_path output.json
+    --model_path pretrained_models/track_2.pth \
+    --model_config_path config_track_2.yaml
+```
 
 ## 🎯 Training
 

@@ -88,7 +88,7 @@ class MHASTP(torch.nn.Module):
             for i, layer in enumerate(self.heads_att_trans):
                 x = chunks[i] 
                 att_score = layer(x)  
-                att_score = att_score.masked_fill(attention_mask.unsqueeze(1), -1e8) 
+                att_score = att_score.masked_fill(attention_mask.unsqueeze(1), -1e4) 
                 alpha = F.softmax(att_score, dim=-1)
                 mean = torch.sum(alpha * x, dim=2)  
                 var = torch.sum(alpha * x**2, dim=2) - mean**2

@@ -62,10 +62,10 @@ def calculate_results_track_1(y_true: np.ndarray, y_pred: np.ndarray, **options)
         f1_dim = 2 * precision_dim * recall_dim / (precision_dim + recall_dim + 1e-8)
 
         metric_result = {
-            "Pearson": round(float(pearson_corr), 3),
-            "Spearman": round(float(spearman_corr), 3),
-            "Kendall": round(float(kendall_corr), 3),
-            "Top_Tier_accuracy": round(float(f1_dim), 3)
+            "LCC": round(float(pearson_corr), 3),
+            "SRCC": round(float(spearman_corr), 3),
+            "KTAU": round(float(kendall_corr), 3),
+            "TTA": round(float(f1_dim), 3)
         }
 
         results[metric] = metric_result
@@ -122,10 +122,10 @@ def calculate_results_track_2(y_true: np.ndarray, y_pred: np.ndarray, **options)
         f1_dim = 2 * precision_dim * recall_dim / (precision_dim + recall_dim + 1e-8)
 
         metric_result = {
-            "Pearson": round(float(pearson_corr), 3),
-            "Spearman": round(float(spearman_corr), 3),
-            "Kendall": round(float(kendall_corr), 3),
-            "Top_Tier_accuracy": round(float(f1_dim), 3)
+            "LCC": round(float(pearson_corr), 3),
+            "SRCC": round(float(spearman_corr), 3),
+            "KTAU": round(float(kendall_corr), 3),
+            "TTA": round(float(f1_dim), 3)
         }
 
         results[metric] = metric_result
@@ -136,10 +136,10 @@ def calculate_results_track_2(y_true: np.ndarray, y_pred: np.ndarray, **options)
         sum_top_tier += f1_dim
 
     mean_result = {
-        "Pearson": round(float(sum_pearson / len(metrics)), 3),
-        "Spearman": round(float(sum_spearman / len(metrics)), 3),
-        "Kendall": round(float(sum_kendall / len(metrics)), 3),
-        "Top_Tier_accuracy": round(float(sum_top_tier / len(metrics)), 3),
+        "LCC": round(float(sum_pearson / len(metrics)), 3),
+        "SRCC": round(float(sum_spearman / len(metrics)), 3),
+        "KTAU": round(float(sum_kendall / len(metrics)), 3),
+        "TTA": round(float(sum_top_tier / len(metrics)), 3),
     }
 
     results["mean"] = mean_result
