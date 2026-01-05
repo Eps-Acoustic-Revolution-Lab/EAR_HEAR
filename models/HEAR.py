@@ -1,10 +1,7 @@
 from transformers.modeling_outputs import SequenceClassifierOutput
 import torch
 import torch.nn as nn
-import os
-import torch.nn.functional as F
 from models.pooling_layer import MQMHASTP
-from safetensors.torch import load_file
 import numpy as np
 
 class TimeDownsample(nn.Module):

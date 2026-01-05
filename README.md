@@ -1,5 +1,6 @@
 
 # **HEAR**: Hierarchically Enhanced Aesthetic Representations for Multidimensional Music Evaluation
+[[paper]](https://arxiv.org/pdf/2511.18869)
 Official PyTorch Implementation of ICASSP 2026 paper "HEAR: Hierarchically Enhanced Aesthetic Representations for Multidimensional Music Evaluation"
 
 This repository contains the training and evaluation code for HEAR, a robust framework designed to address the challenges of multidimensional music aesthetic evaluation under limited labeled data.
@@ -131,4 +132,13 @@ We sincerely thank the authors and contributors of the following open-source pro
 We would like to express our special thanks to **Shizhe Chen** from **Shanghai Conservatory of Music** for his invaluable guidance and insights on music aesthetics.
 
 ## 📚 Citation
-TODO: To be updated when the paper is ready.
+```@misc{liu2025hearhierarchicallyenhancedaesthetic,
+      title={Hear: Hierarchically Enhanced Aesthetic Representations For Multidimensional Music Evaluation}, 
+      author={Shuyang Liu and Yuan Jin and Rui Lin and Shizhe Chen and Junyu Dai and Tao Jiang},
+      year={2025},
+      eprint={2511.18869},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD},
+      url={https://arxiv.org/abs/2511.18869}, 
+}
+```
