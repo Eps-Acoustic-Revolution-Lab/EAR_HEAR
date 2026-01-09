@@ -1,6 +1,7 @@
 
 # **HEAR**: Hierarchically Enhanced Aesthetic Representations for Multidimensional Music Evaluation
-[**Paper**](https://arxiv.org/pdf/2511.18869)
+[**Paper**](https://arxiv.org/pdf/2511.18869) |
+[**Model**](https://huggingface.co/earlab/EAR_HEAR)
 <br>
 
 Official PyTorch Implementation of ICASSP 2026 paper "HEAR: Hierarchically Enhanced Aesthetic Representations for Multidimensional Music Evaluation"
@@ -8,7 +9,7 @@ Official PyTorch Implementation of ICASSP 2026 paper "HEAR: Hierarchically Enhan
 This repository contains the training and evaluation code for HEAR, a robust framework designed to address the challenges of multidimensional music aesthetic evaluation under limited labeled data.
 ![](figs/HEAR.png)
 ## 🌟 Key Features
-* **Top-tier performance**: Ranked 2nd/19 on Track 1 and 5th/17 on Track 2 in the [ICASSP 2026 Automatic Song Aesthetics Evaluation Challenge](https://aslp-lab.github.io/Automatic-Song-Aesthetics-Evaluation-Challenge/).
+* **Excellent Performance**: Ranked 2nd/19 on Track 1 and 5th/17 on Track 2 in the [ICASSP 2026 Automatic Song Aesthetics Evaluation Challenge](https://aslp-lab.github.io/Automatic-Song-Aesthetics-Evaluation-Challenge/).
 * **Robustness**: Synergizes Multi-Source Multi-Scale Representations and Hierarchical Augmentation to capture robust features under limited labeled data.
 * **Dual Capability**: Optimized for both exact score prediction and ranking (Top-Tier Song Identification).
 
@@ -25,8 +26,9 @@ pip install -r requirements.txt
 
 ## 🚀 Quick Start
 ```
-# download pretrained model weights
-# TODO: Pretrained model will be uploaded to HuggingFace soon.
+# Download pretrained model weights
+export HF_ENDPOINT=https://hf-mirror.com  # For users in Mainland China, this is needed for HuggingFace downloads
+hf download earlab/EAR_HEAR --local-dir pretrained_models
 
 # Track 1: Single-Label Inference (Musicality)
 python inference.py \
@@ -36,7 +38,7 @@ python inference.py \
     --model_config_path config_track_1.yaml
 
 
-# Track 2: 
+# Track 2:  Multi-Label Inference (5 Dimensions)
 python inference.py \
     --input_audio_path data_pipeline/origin_song_eval_dataset/mp3/0.mp3 \
     --output_json_path output.json
